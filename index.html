@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>កម្មវិធីគណនាពន្ទុសិស្ស</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Khmer OS Battambang', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section, .output-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select, button {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #7f8c8d;
+        }
+        
+        .btn-secondary:hover {
+            background: #636e72;
+        }
+        
+        .btn-success {
+            background: #27ae60;
+        }
+        
+        .btn-success:hover {
+            background: #219653;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .subject-inputs {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .subject-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .subject-item input {
+            flex: 1;
+        }
+        
+        .remove-subject {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .grade-inputs {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .grade-row {
+            display: grid;
+            grid-template-columns: 1fr 100px;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .student-list {
+            margin-top: 20px;
+        }
+        
+        .student-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .student-info {
+            flex: 1;
+        }
+        
+        .student-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .student-average {
+            color: #3498db;
+            font-weight: 600;
+        }
+        
+        .student-grade {
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 3px;
+            color: white;
+        }
+        
+        .grade-A { background: #27ae60; }
+        .grade-B { background: #2ecc71; }
+        .grade-C { background: #f39c12; }
+        .grade-D { background: #e67e22; }
+        .grade-E { background: #d35400; }
+        .grade-F { background: #e74c3c; }
+        
+        .student-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .action-btn {
+            width: auto;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+        
+        .statistics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid #3498db;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .report-section {
+            margin-top: 30px;
+        }
+        
+        .report-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-top: 20px;
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .report-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+        }
+        
+        .grade-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .grade-table th, .grade-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .grade-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .grade-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .average-row {
+            background: #e8f4fc !important;
+            font-weight: 600;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: #27ae60;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.error {
+            background: #e74c3c;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>កម្មវិធីគណនាពន្ទុសិស្ស</h1>
+            <p class="subtitle">គណនាពន្ទុមធ្យម និងថ្នាក់សិស្សយ៉ាងងាយស្រួល</p>
+        </header>
+        
+        <div class="app-container">
+            <!-- ផ្នែកបញ្ចូលទិន្នន័យ -->
+            <div class="input-section">
+                <h2 class="section-title">ការកំណត់ព័ត៌មាន</h2>
+                
+                <div class="form-group">
+                    <label for="subjectCount">ចំនួនមុខវិជ្ជា</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="subjectCount" min="1" max="10" value="3">
+                        <button id="setSubjects" class="btn-secondary">កំណត់</button>
+                    </div>
+                </div>
+                
+                <div id="subjectInputs" class="subject-inputs">
+                    <!-- មុខវិជ្ជានឹងត្រូវបង្កើតនៅទីនេះ -->
+                </div>
+                
+                <div class="form-group">
+                    <label for="studentName">ឈ្មោះសិស្ស</label>
+                    <input type="text" id="studentName" placeholder="បញ្ចូលឈ្មោះសិស្ស">
+                </div>
+                
+                <div id="gradeInputs" class="grade-inputs">
+                    <!-- ពន្ទុនឹងត្រូវបង្កើតនៅទីនេះ -->
+                </div>
+                
+                <button id="addStudent" class="btn-success">បន្ថែមសិស្ស</button>
+                <button id="clearAll" class="btn-danger">លុបទិន្នន័យទាំងអស់</button>
+            </div>
+            
+            <!-- ផ្នែកបង្ហាញលទ្ធផល -->
+            <div class="output-section">
+                <h2 class="section-title">លទ្ធផលពន្ទុសិស្ស</h2>
+                
+                <div id="statistics" class="statistics">
+                    <!-- ស្ថិតិនឹងត្រូវបង្ហាញនៅទីនេះ -->
+                </div>
+                
+                <div class="student-list">
+                    <h3 style="margin-bottom: 15px; color: #2c3e50;">បញ្ជីសិស្ស</h3>
+                    <div id="studentsList">
+                        <!-- បញ្ជីសិស្សនឹងត្រូវបង្ហាញនៅទីនេះ -->
+                        <p style="text-align: center; color: #7f8c8d; padding: 20px;">មិនទាន់មានទិន្នន័យសិស្សទេ។ សូមបញ្ចូលសិស្សដំបូង។</p>
+                    </div>
+                </div>
+                
+                <div id="reportSection" class="report-section hidden">
+                    <h3 style="margin-bottom: 15px; color: #2c3e50;">របាយការណ៍លម្អិត</h3>
+                    <div id="reportCard" class="report-card">
+                        <!-- របាយការណ៍លម្អិតនឹងត្រូវបង្ហាញនៅទីនេះ -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>កម្មវិធីគណនាពន្ទុសិស្ស  | </p>
+            <p style="margin-top: 5px; font-size: 0.9rem;">អាចប្រើប្រាស់បានលើគ្រប់ឧបករណ៍</p>
+        </footer>
+    </div>
+    
+    <div id="notification" class="notification hidden"></div>
+
+    <script>
+        // អថេរទិន្នន័យ
+        let subjects = [];
+        let students = [];
+        let subjectCount = 3;
+        
+        // ធាតុ DOM
+        const subjectCountInput = document.getElementById('subjectCount');
+        const setSubjectsBtn = document.getElementById('setSubjects');
+        const subjectInputsDiv = document.getElementById('subjectInputs');
+        const studentNameInput = document.getElementById('studentName');
+        const gradeInputsDiv = document.getElementById('gradeInputs');
+        const addStudentBtn = document.getElementById('addStudent');
+        const clearAllBtn = document.getElementById('clearAll');
+        const studentsListDiv = document.getElementById('studentsList');
+        const statisticsDiv = document.getElementById('statistics');
+        const reportSection = document.getElementById('reportSection');
+        const reportCard = document.getElementById('reportCard');
+        const notification = document.getElementById('notification');
+        
+        // អនុគមន៍ដំបូង
+        function init() {
+            // កំណត់មុខវិជ្ជាដំបូង
+            setSubjects();
+            
+            // ត្រួតពិនិត្យពេលចូលទៅក្នុងកម្មវិធី
+            loadFromLocalStorage();
+            
+            // ប្រកាសព្រឹត្តិការណ៍
+            setSubjectsBtn.addEventListener('click', setSubjects);
+            addStudentBtn.addEventListener('click', addStudent);
+            clearAllBtn.addEventListener('click', clearAllData);
+            subjectCountInput.addEventListener('change', updateSubjectCount);
+        }
+        
+        // បង្កើតការបញ្ចូលមុខវិជ្ជា
+        function setSubjects() {
+            subjectCount = parseInt(subjectCountInput.value) || 3;
+            subjects = [];
+            subjectInputsDiv.innerHTML = '';
+            
+            for (let i = 0; i < subjectCount; i++) {
+                const subjectItem = document.createElement('div');
+                subjectItem.className = 'subject-item';
+                
+                subjectItem.innerHTML = `
+                    <input type="text" id="subject${i}" placeholder="មុខវិជ្ជា ${i+1}" value="មុខវិជ្ជា ${i+1}">
+                `;
+                
+                subjectInputsDiv.appendChild(subjectItem);
+            }
+            
+            // បង្កើតការបញ្ចូលពន្ទុ
+            createGradeInputs();
+            
+            showNotification('បានកំណត់មុខវិជ្ជាដោយជោគជ័យ!');
+        }
+        
+        // បង្កើតការបញ្ចូលពន្ទុ
+        function createGradeInputs() {
+            gradeInputsDiv.innerHTML = '<h4 style="margin-bottom: 10px; color: #2c3e50;">បញ្ចូលពន្ទុសិស្ស</h4>';
+            
+            for (let i = 0; i < subjectCount; i++) {
+                const gradeRow = document.createElement('div');
+                gradeRow.className = 'grade-row';
+                
+                gradeRow.innerHTML = `
+                    <label for="grade${i}">មុខវិជ្ជា ${i+1}</label>
+                    <input type="number" id="grade${i}" min="0" max="100" placeholder="0-100">
+                `;
+                
+                gradeInputsDiv.appendChild(gradeRow);
+            }
+        }
+        
+        // បន្ថែមសិស្សថ្មី
+        function addStudent() {
+            const studentName = studentNameInput.value.trim();
+            
+            if (!studentName) {
+                showNotification('សូមបញ្ចូលឈ្មោះសិស្ស!', true);
+                studentNameInput.focus();
+                return;
+            }
+            
+            // ទាញយកឈ្មោះមុខវិជ្ជា
+            const subjectNames = [];
+            for (let i = 0; i < subjectCount; i++) {
+                const subjectInput = document.getElementById(`subject${i}`);
+                subjectNames.push(subjectInput.value.trim() || `មុខវិជ្ជា ${i+1}`);
+            }
+            
+            // ទាញយកពន្ទុ
+            const grades = [];
+            let hasError = false;
+            
+            for (let i = 0; i < subjectCount; i++) {
+                const gradeInput = document.getElementById(`grade${i}`);
+                const gradeValue = parseFloat(gradeInput.value);
+                
+                if (isNaN(gradeValue) || gradeValue < 0 || gradeValue > 100) {
+                    showNotification(`សូមបញ្ចូលពន្ទុមុខវិជ្ជា ${i+1} ពី 0 ដល់ 100!`, true);
+                    gradeInput.focus();
+                    hasError = true;
+                    break;
+                }
+                
+                grades.push(gradeValue);
+            }
+            
+            if (hasError) return;
+            
+            // គណនាពន្ទុមធ្យម
+            const average = calculateAverage(grades);
+            const gradeLetter = calculateGrade(average);
+            
+            // បង្កើតវត្ថុសិស្ស
+            const student = {
+                id: Date.now(),
+                name: studentName,
+                subjects: subjectNames,
+                grades: grades,
+                average: average,
+                grade: gradeLetter,
+                date: new Date().toLocaleDateString('km-KH')
+            };
+            
+            // បន្ថែមសិស្សទៅក្នុងអារេ
+            students.push(student);
+            
+            // ធ្វើឱ្យទិន្នន័យទាន់សម័យ
+            updateDisplay();
+            
+            // សម្អាតការបញ្ចូល
+            studentNameInput.value = '';
+            for (let i = 0; i < subjectCount; i++) {
+                document.getElementById(`grade${i}`).value = '';
+            }
+            
+            showNotification(`បានបន្ថែមសិស្ស ${studentName} ដោយជោគជ័យ!`);
+            
+            // រក្សាទិន្នន័យ
+            saveToLocalStorage();
+        }
+        
+        // គណនាពន្ទុមធ្យម
+        function calculateAverage(grades) {
+            const sum = grades.reduce((total, grade) => total + grade, 0);
+            return sum / grades.length;
+        }
+        
+        // គណនាថ្នាក់
+        function calculateGrade(average) {
+            if (average >= 90) return 'A';
+            if (average >= 80) return 'B';
+            if (average >= 70) return 'C';
+            if (average >= 60) return 'D';
+            if (average >= 50) return 'E';
+            return 'F';
+        }
+        
+        // ធ្វើឱ្យទិន្នន័យទាន់សម័យ
+        function updateDisplay() {
+            // បង្ហាញបញ្ជីសិស្ស
+            if (students.length === 0) {
+                studentsListDiv.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 20px;">មិនទាន់មានទិន្នន័យសិស្សទេ។ សូមបញ្ចូលសិស្សដំបូង។</p>';
+                reportSection.classList.add('hidden');
+            } else {
+                studentsListDiv.innerHTML = '';
+                
+                students.forEach((student, index) => {
+                    const studentItem = document.createElement('div');
+                    studentItem.className = 'student-item';
+                    
+                    studentItem.innerHTML = `
+                        <div class="student-info">
+                            <div class="student-name">${student.name}</div>
+                            <div>មុខវិជ្ជា: ${student.subjects.length} | កាលបរិច្ឆេទ: ${student.date}</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div class="student-average">${student.average.toFixed(2)}</div>
+                            <div class="student-grade grade-${student.grade}">${student.grade}</div>
+                            <div class="student-actions">
+                                <button class="action-btn btn-secondary" onclick="viewReport(${index})">មើល</button>
+                                <button class="action-btn btn-danger" onclick="deleteStudent(${index})">លុប</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    studentsListDiv.appendChild(studentItem);
+                });
+            }
+            
+            // ធ្វើឱ្យស្ថិតិទាន់សម័យ
+            updateStatistics();
+        }
+        
+        // ធ្វើឱ្យស្ថិតិទាន់សម័យ
+        function updateStatistics() {
+            if (students.length === 0) {
+                statisticsDiv.innerHTML = '';
+                return;
+            }
+            
+            // គណនាស្ថិតិ
+            const averages = students.map(s => s.average);
+            const totalAverage = averages.reduce((sum, avg) => sum + avg, 0) / averages.length;
+            const highestAverage = Math.max(...averages);
+            const lowestAverage = Math.min(...averages);
+            
+            const grades = students.map(s => s.grade);
+            const passCount = grades.filter(g => g !== 'F').length;
+            const failCount = grades.filter(g => g === 'F').length;
+            
+            statisticsDiv.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">សិស្សសរុប</div>
+                    <div class="stat-value">${students.length}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">ពន្ទុមធ្យមថ្នាក់</div>
+                    <div class="stat-value">${totalAverage.toFixed(2)}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">អត្រាជាប់</div>
+                    <div class="stat-value">${((passCount / students.length) * 100).toFixed(1)}%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">អត្រាធ្លាក់</div>
+                    <div class="stat-value">${((failCount / students.length) * 100).toFixed(1)}%</div>
+                </div>
+            `;
+        }
+        
+        // មើលរបាយការណ៍សិស្ស
+        function viewReport(index) {
+            const student = students[index];
+            
+            // បង្កើតតារាងពន្ទុ
+            let gradesTable = '';
+            student.subjects.forEach((subject, i) => {
+                const subGrade = calculateGrade(student.grades[i]);
+                gradesTable += `
+                    <tr>
+                        <td>${subject}</td>
+                        <td>${student.grades[i].toFixed(2)}</td>
+                        <td><span class="student-grade grade-${subGrade}">${subGrade}</span></td>
+                    </tr>
+                `;
+            });
+            
+            // កំណត់ស្ថានភាព
+            const status = student.grade !== 'F' ? 'ជាប់' : 'ធ្លាក់';
+            const statusClass = student.grade !== 'F' ? 'grade-A' : 'grade-F';
+            
+            // កំណត់អនុសាសន៍
+            let recommendation = '';
+            if (student.average >= 80) {
+                recommendation = 'សិស្សមានចំណាត់ថ្នាក់ល្អ! សូមរក្សាកម្រិតនេះ។';
+            } else if (student.average >= 50) {
+                recommendation = 'សិស្សអាចខិតខំបន្ថែមទៀត! សូមខំប្រឹងលើមុខវិជ្ជាដែលទាប។';
+            } else {
+                recommendation = 'សូមជួយដាក់គម្រោងពិសេសសម្រាប់សិស្សនេះ។';
+            }
+            
+            reportCard.innerHTML = `
+                <div class="report-header">
+                    <div class="report-title">របាយការណ៍ពន្ទុសិស្ស</div>
+                    <button onclick="closeReport()" class="btn-danger" style="width: auto;">បិទ</button>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 10px;">${student.name}</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <strong>កាលបរិច្ឆេទ:</strong> ${student.date}
+                        </div>
+                        <div>
+                            <strong>ចំនួនមុខវិជ្ជា:</strong> ${student.subjects.length}
+                        </div>
+                        <div>
+                            <strong>ស្ថានភាព:</strong> <span class="student-grade ${statusClass}">${status}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 style="margin-bottom: 10px; color: #2c3e50;">ពន្ទុមុខវិជ្ជា</h4>
+                <table class="grade-table">
+                    <thead>
+                        <tr>
+                            <th>មុខវិជ្ជា</th>
+                            <th>ពន្ទុ</th>
+                            <th>ថ្នាក់</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${gradesTable}
+                        <tr class="average-row">
+                            <td><strong>មធ្យមសរុប</strong></td>
+                            <td><strong>${student.average.toFixed(2)}</strong></td>
+                            <td><strong><span class="student-grade grade-${student.grade}">${student.grade}</span></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                    <h4 style="margin-bottom: 10px; color: #2c3e50;">អនុសាសន៍</h4>
+                    <p>${recommendation}</p>
+                </div>
+            `;
+            
+            reportSection.classList.remove('hidden');
+            reportSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // បិទរបាយការណ៍
+        function closeReport() {
+            reportSection.classList.add('hidden');
+        }
+        
+        // លុបសិស្ស
+        function deleteStudent(index) {
+            const studentName = students[index].name;
+            
+            if (confirm(`តើអ្នកពិតជាចង់លុបសិស្ស "${studentName}" មែនទេ?`)) {
+                students.splice(index, 1);
+                updateDisplay();
+                saveToLocalStorage();
+                showNotification(`បានលុបសិស្ស ${studentName} ដោយជោគជ័យ!`);
+                
+                // បិទរបាយការណ៍ប្រសិនបើកំពុងមើល
+                closeReport();
+            }
+        }
+        
+        // លុបទិន្នន័យទាំងអស់
+        function clearAllData() {
+            if (students.length === 0) {
+                showNotification('មិនមានទិន្នន័យដើម្បីលុប!', true);
+                return;
+            }
+            
+            if (confirm('តើអ្នកពិតជាចង់លុបទិន្នន័យសិស្សទាំងអស់មែនទេ? សកម្មភាពនេះមិនអាចត្រឡប់ក្រោយបានទេ។')) {
+                students = [];
+                updateDisplay();
+                localStorage.removeItem('studentGradeData');
+                showNotification('បានលុបទិន្នន័យទាំងអស់ដោយជោគជ័យ!');
+            }
+        }
+        
+        // ធ្វើបច្ចុប្បន្នភាពចំនួនមុខវិជ្ជា
+        function updateSubjectCount() {
+            const count = parseInt(subjectCountInput.value);
+            if (count < 1) subjectCountInput.value = 1;
+            if (count > 10) subjectCountInput.value = 10;
+        }
+        
+        // បង្ហាញការជូនដំណឹង
+        function showNotification(message, isError = false) {
+            notification.textContent = message;
+            notification.className = 'notification';
+            
+            if (isError) {
+                notification.classList.add('error');
+            }
+            
+            notification.classList.remove('hidden');
+            
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+        
+        // រក្សាទិន្នន័យទៅក្នុង Local Storage
+        function saveToLocalStorage() {
+            const data = {
+                subjects: [],
+                students: students,
+                subjectCount: subjectCount
+            };
+            
+            // ទាញយកឈ្មោះមុខវិជ្ជា
+            for (let i = 0; i < subjectCount; i++) {
+                const subjectInput = document.getElementById(`subject${i}`);
+                if (subjectInput) {
+                    data.subjects.push(subjectInput.value.trim() || `មុខវិជ្ជា ${i+1}`);
+                }
+            }
+            
+            localStorage.setItem('studentGradeData', JSON.stringify(data));
+        }
+        
+        // ទាញយកទិន្នន័យពី Local Storage
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('studentGradeData');
+            
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    
+                    if (data.subjectCount) {
+                        subjectCount = data.subjectCount;
+                        subjectCountInput.value = subjectCount;
+                        setSubjects();
+                    }
+                    
+                    if (data.subjects && data.subjects.length > 0) {
+                        // កំណត់ឈ្មោះមុខវិជ្ជា
+                        data.subjects.forEach((subject, i) => {
+                            const subjectInput = document.getElementById(`subject${i}`);
+                            if (subjectInput) {
+                                subjectInput.value = subject;
+                            }
+                        });
+                    }
+                    
+                    if (data.students && data.students.length > 0) {
+                        students = data.students;
+                        updateDisplay();
+                        showNotification('ទាញយកទិន្នន័យដោយជោគជ័យ!');
+                    }
+                } catch (error) {
+                    console.error('កំហុសក្នុងការទាញយកទិន្នន័យ:', error);
+                }
+            }
+        }
+        
+        // ចាប់ផ្ដើមកម្មវិធី
+        init();
+    </script>
+</body>
+</html>
